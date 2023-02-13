@@ -16,13 +16,16 @@ import {
   HStack,
   Link,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
+  const { query } = useRouter();
   useEffect(() => {
-    //todo call api get product detail
-  }, []);
+    //todo call api get store detail
+    console.log("uuid", query.uuid);
+  }, [query]);
   return (
     <VStack spacing={32} w="full" p="6" h="full">
       <Center w="full" mt={32}>

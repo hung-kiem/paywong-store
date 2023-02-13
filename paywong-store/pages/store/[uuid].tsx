@@ -10,12 +10,15 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
 
 const StoreDetail = () => {
+  const { query } = useRouter();
   useEffect(() => {
     //todo call api get store detail
-  }, []);
+    console.log("uuid", query.uuid);
+  }, [query]);
 
   const renderItem = useCallback(() => {
     return (

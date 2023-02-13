@@ -1,16 +1,5 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
-import { customTheme } from "theme";
 import { withUrqlClient } from "next-urql";
-
-function App({ Component, pageProps }: AppProps) {
-  return (
-    <ChakraProvider theme={customTheme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  );
-}
+import App from "next/app";
 
 const HASURA_GRAPHQL_ENDPOINT =
   process.env.REACT_APP_HASURA_GRAPHQL_ENDPOINT ||

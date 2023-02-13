@@ -1,0 +1,24 @@
+fragment Product on Product {
+  appId
+  currencyId
+  description
+  id
+  imageUrl
+  isEnabled
+  name
+  price
+  sku
+  createdAt
+  currency {
+    id
+    name
+    isFiat
+    priceUSD
+    symbol
+  }
+  app {
+    id
+    accountId
+    typeId
+  }
+}

@@ -1,28 +1,51 @@
-import {
-  Button,
-  Flex,
-  Heading,
-  Input,
-  useColorMode,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { useQuery } from "urql";
 
 const Home = () => {
-  const { toggleColorMode } = useColorMode();
-  const formBackground = useColorModeValue("gray.100", "gray.700");
-  return (
-    <Flex height="100vh" alignItems="center" justifyContent="center">
-      <Flex direction="column" bg={formBackground}>
-        <Heading mb={6}>Paywong Store</Heading>
-        <Input placeholder="Email" mb={3} />
-        <Input placeholder="Password" mb={6} />
-        <Button colorScheme="teal" mb={6}>
-          Login
-        </Button>
-        <Button onClick={toggleColorMode}>Toggle Color Mode</Button>
-      </Flex>
-    </Flex>
-  );
+  const [{ data, fetching }] = useQuery({
+    variables: {
+      where: {
+        appId: {
+          _eq: "bbd5bf91-b6e1-4371-ada8-aa0119bb86cc",
+        },
+      },
+    },
+    query: `query getProducts($limit: Int = 20, $offset: Int = 0, $where: ProductBoolExp) {
+      pagination: productAggregate(where: $where) {
+        aggregate {
+          count
+        }
+      }
+      product(limit: $limit, offset: $offset, where: $where, orderBy: {createdAt: DESC}) {
+        appId
+        currencyId
+        description
+        id
+        imageUrl
+        isEnabled
+        name
+        price
+        sku
+        createdAt
+        currency {
+          id
+          name
+          isFiat
+          priceUSD
+          symbol
+        }
+        app {
+          id
+          typeId
+          accountId
+        }
+      }
+    }
+    `,
+  });
+
+  console.log("fetching", fetching);
+  console.log("data", data);
+  return <></>;
 };
 
 export default Home;

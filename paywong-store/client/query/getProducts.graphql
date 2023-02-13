@@ -1,0 +1,36 @@
+query getProducts($limit: Int = 20, $offset: Int = 0, $where: ProductBoolExp) {
+  pagination: productAggregate(where: $where) {
+    aggregate {
+      count
+    }
+  }
+  product(
+    limit: $limit
+    offset: $offset
+    where: $where
+    orderBy: { createdAt: DESC }
+  ) {
+    appId
+    currencyId
+    description
+    id
+    imageUrl
+    isEnabled
+    name
+    price
+    sku
+    createdAt
+    currency {
+      id
+      name
+      isFiat
+      priceUSD
+      symbol
+    }
+    app {
+      id
+      accountId
+      typeId
+    }
+  }
+}
